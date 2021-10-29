@@ -1,6 +1,6 @@
 
 <figure> 
-	<img src="https://gitee.com/chenhui_juuu/picbed/raw/master/picbed/IMG_6000.jpg" 
+	<img src="https://wx1.sinaimg.cn/mw2000/006fbqCNly1gvw5a16nf3j32dj1w2qv5.jpg" 
        title="2021年6月于上海迪士尼 by Ninn" 		          width="450">
 </figure>
 

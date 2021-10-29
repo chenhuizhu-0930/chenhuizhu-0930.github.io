@@ -1,3 +1,6 @@
+---
+title: Home
+---
 
 <figure> 
 	<img src="https://wx1.sinaimg.cn/mw2000/006fbqCNly1gvw5a16nf3j32dj1w2qv5.jpg" 

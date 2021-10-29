@@ -4,8 +4,10 @@ type : list-single
 ---
 ## Chen Huizhu
 
-Email: 0193100328@shisu.edu.cn
-URL: https://chenhuizhu-0930.github.io
+Email: 0193100328@shisu.edu.cn  
+
+URL: https://chenhuizhu-0930.github.io  
+
 Born: September 30, 1996（Harbin, Heilongjiang）
 
 ### Education

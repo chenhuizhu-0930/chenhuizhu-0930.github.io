@@ -1,6 +1,7 @@
 ---
 title: "Curriculum Vitae"
 type : list-single
+date : '2021-10-29'
 ---
 ## Chen Huizhu
 

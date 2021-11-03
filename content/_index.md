@@ -5,7 +5,11 @@ title: Home
 <figure> 
 	<img src="/img/img_me.jpg" 
        title="2021年6月于上海迪士尼 by Ninn" 		          width="450">
+
 </figure>
+
+<center><font color=grey size=10>当我追光时，我与光同航</font></center>
+
 
 I was born on September in 1996. I’m currently doing Japanese language and culture in Shanghai International Studies University, advised by Dr.Zhang Shaoduo. From September 2017 to August 2018, I studied at Chiba university in Japan sponsored by the China Scholarship Council. In 2020, I translated an acdemic book in japanese with my classmates on a class called the Introduction of Area Studies.
 

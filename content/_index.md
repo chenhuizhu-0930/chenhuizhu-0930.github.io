@@ -3,7 +3,7 @@ title: Home
 ---
 
 <figure> 
-	<img src="/img/img_me.jpg" 
+	<img src="/img/img_me1.jpg" 
        title="2021年6月于上海迪士尼 by Ninn" 		          width="450">
     <center><font color=grey size=4>当我追光时，我与光同航</font></center>
 </figure>

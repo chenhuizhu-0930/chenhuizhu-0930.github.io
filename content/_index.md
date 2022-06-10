@@ -3,7 +3,7 @@ title: Home
 ---
 
 <figure> 
-	<img src="img_me2.jpg" 
+	<img src="img_me.jpg" 
        title="2022年6月于上外" 		          width="450">
     <center><font color=grey size=4>当我追光时，我与光同航</font></center>
 </figure>

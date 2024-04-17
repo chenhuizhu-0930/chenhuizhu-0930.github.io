@@ -51,13 +51,13 @@ posts = "/posts/:year/:month/:day/:slug/"
     MathJaxVersion = "2.7.5"
     favicon = "media/hugo-logo.png"
     # Edit by yourself:
-    GithubEdit = "https://github.com/chenhuizhu-0930/chenhuizhu-0930.github.io/edit/master/content/"
+    GithubEdit = "https://github.com/chenhuizhu-0930/chenhuizhu-0930.github.io/edit/gh-pages/content/"
     copyright = "&copy;"
-    copyrightYear = "2020-2021"
+    copyrightYear = "2023-2024"
     # Edit by yourself:
     GithubRepo = "https://github.com/chenhuizhu-0930/chenhuizhu-0930.github.io"
     # Edit by yourself:
-    ContentSource = "https://raw.githubusercontent.com/chenhuizhu-0930/chenhuizhu-0930.github.io/master/content/"
+    ContentSource = "https://raw.githubusercontent.com/chenhuizhu-0930/chenhuizhu-0930.github.io/gh-pages/content/"
 
 [params.logo]
   # Change the logo picture as your prefer:

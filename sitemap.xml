@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/06/ThemeEdit/</loc>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/</loc>
     
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,16 @@
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/01/22/BlogUpdateMethod/</loc>
     
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/06/ThemeEdit/</loc>
+    
+    <lastmod>2025-02-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +31,7 @@
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/05/UseMarkdown/</loc>
     
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -67,7 +76,7 @@
 
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog</loc>
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -75,14 +84,14 @@
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Hexo/</loc>
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Markdown/</loc>
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -91,14 +100,14 @@
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/</loc>
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2025-02-06</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

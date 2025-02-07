@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>利用Hexo在博客中插入本地图片 | 无需外链 | keijyu-Blog</title><meta name="author" content="keijyu"><meta name="copyright" content="keijyu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="网页中插入图片  Hexo的config.yml文件中把post_asset_folder属性更改为true。 这样在每次运行hexo n [layout] &lt;文章名&gt;命令时，Hexo都会自动生成文章标题同名的文件夹，把图片放入该文件夹，md引用链接时只需要键入图片名称即可。 启动Hexo服务器后，Hexo解析时会自动在public文件夹中解析出图片的正确路径。    vscode内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Hexo在博客中插入本地图片 | 无需外链">
+<meta property="og:url" content="https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/index.html">
+<meta property="og:site_name" content="keijyu-Blog">
+<meta property="og:description" content="网页中插入图片  Hexo的config.yml文件中把post_asset_folder属性更改为true。 这样在每次运行hexo n [layout] &lt;文章名&gt;命令时，Hexo都会自动生成文章标题同名的文件夹，把图片放入该文件夹，md引用链接时只需要键入图片名称即可。 启动Hexo服务器后，Hexo解析时会自动在public文件夹中解析出图片的正确路径。    vscode内">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenhuizhu-0930.github.io/Blog/img/my-photo.jpg">
+<meta property="article:published_time" content="2025-02-07T04:54:05.000Z">
+<meta property="article:modified_time" content="2025-02-07T05:51:10.908Z">
+<meta property="article:author" content="keijyu">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenhuizhu-0930.github.io/Blog/img/my-photo.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "利用Hexo在博客中插入本地图片 | 无需外链",
+  "url": "https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/",
+  "image": "https://chenhuizhu-0930.github.io/Blog/img/my-photo.jpg",
+  "datePublished": "2025-02-07T04:54:05.000Z",
+  "dateModified": "2025-02-07T05:51:10.908Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "keijyu",
+      "url": "https://chenhuizhu-0930.github.io/Blog/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Blog/img/my-photo.jpg"><link rel="canonical" href="https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="R35ocZxY44_Dj9X92NG-FwSv3aOBtxGw3gH4hhOztXQ"/><meta name="msvalidate.01" content="3F7DB54452D6C04895D1BF5A996384A1"/><link rel="stylesheet" href="/Blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '利用Hexo在博客中插入本地图片 | 无需外链',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Blog/img/my-photo.jpg" onerror="this.onerror=null;this.src='/Blog/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Blog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/Blog/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/Blog/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Blog/"><span class="site-name">keijyu-Blog</span></a><a class="nav-page-title" href="/Blog/"><span class="site-name">利用Hexo在博客中插入本地图片 | 无需外链</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">利用Hexo在博客中插入本地图片 | 无需外链</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-07T04:54:05.000Z" title="发表于 2025-02-07 12:54:05">2025-02-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-07T05:51:10.908Z" title="更新于 2025-02-07 13:51:10">2025-02-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Blog/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">375</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="网页中插入图片"><a class="markdownIt-Anchor" href="#网页中插入图片"></a> 网页中插入图片</h2>
+<ol>
+<li>Hexo的config.yml文件中把post_asset_folder属性更改为true。</li>
+<li>这样在每次运行<code>hexo n [layout] &lt;文章名&gt;</code>命令时，Hexo都会自动生成文章标题同名的文件夹，把图片放入该文件夹，md引用链接时只需要键入图片名称即可。</li>
+<li>启动Hexo服务器后，Hexo解析时会自动在public文件夹中解析出图片的正确路径。<br />
+<img src="image-1.png" alt="alt text" /></li>
+</ol>
+<h2 id="vscode内置预览typora中显示图片"><a class="markdownIt-Anchor" href="#vscode内置预览typora中显示图片"></a> vscode内置预览/Typora中显示图片</h2>
+<p>由于使用的路径是<code>image-1.png</code>（目的是保证Hexo解析后正常显示），并不是source文件夹中的相对路径<code>./HexoAddImage/image-1.png</code>,so md预览时无法正常显示图片。<br />
+要解决这个问题…（dbq还没开始解决）</p>
+<h2 id="调整图片大小"><a class="markdownIt-Anchor" href="#调整图片大小"></a> 调整图片大小</h2>
+<p>下回分解</p>
+<p>——————以下为碎碎念——————<br />
+上午搞了2h+才弄清楚即使vscode内置预览显示图片不代表本地预览就会显示。启动Hexo服务器后，hexo g命令会根据渲染器解析md中的图片路径，public文件夹中html文件中解析后的图片路径才决定网页上是否显示图片。搞半天才搞清楚这个事情，心情很烦躁，却不肯放下，还逼着自己继续查。于是更烦躁了…搞来搞去脖子也痛了才去吃饭。下午回来一看其实方法很简单…这就是在吃没有基础知识的苦吧&amp;干饭真的会让头脑清醒hhh</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://chenhuizhu-0930.github.io/Blog">keijyu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/">https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://chenhuizhu-0930.github.io/Blog" target="_blank">keijyu-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Blog/tags/Hexo/">Hexo</a></div><div class="post-share"><div class="social-share" data-image="/Blog/img/my-photo.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Blog/2025/02/06/ThemeEdit/" title="Hexo部署与配置-基于Butterfly主题【持续更新】"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-06</div><div class="info-item-2">Hexo部署与配置-基于Butterfly主题【持续更新】</div></div><div class="info-2"><div class="info-item-1">这篇博文作为总参考，感谢竹山一叶。  Hexo站点部署 本人太懒了，看客们不如…参考这篇文章？  网站配置  Front-matter 参考Hexo文档的Front-matter说明  开启评论 听说推荐Twikoo，话不多说先上参考链接，留待以后搞。  网站美化  添加背景动效 DIY中，参考了竹山一叶的Hexo+Butterfly操作指南、美化方案和优化教程，以及花猪的Hexo魔改记录&amp;感谢。  搭建图床 这个要快点搞…  其他  RSS源订阅  搜索引擎收录  平台验证 在html文件的head头中添加一行验证码，验证码从各平台search console获取。 首次通过平台验证后，大概过5-6天可以完成索引编制，可在搜索引擎中搜索到自己的网站。  查了查百度的好像比较麻烦，没有申请收录，so目前只在谷歌和必应平台做了验证。  添加站点地图 用于各平台（谷歌、必应、百度等）爬虫快速根据网站结构抓取网站关键字。  SEO进阶 还没实践，可参考这篇博文的SEO进阶部分。  添加搜索栏 等博文多了再慢慢搞吧。  网站加速 多平台托管，通过不同管线访问 </div></div></div></a><a class="pagination-related" href="/Blog/2025/01/22/BlogUpdateMethod/" title="Hexo更新博文介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-22</div><div class="info-item-2">Hexo更新博文介绍</div></div><div class="info-2"><div class="info-item-1">Hiii，你好呀！欢迎来到我的网络小窝~  使用工具 我的博客由Hexo框架驱动，使用Hexo的Butterfly模板做了一丢丢修改，部署在github上。日常用vscode进行博客美化，用Typora撰写博客。 这篇文章主要介绍博文更新的方法。其他部分比如博客搭建、Hexo主题使用、效率工具推荐（vpn/插件/chatgpt/notion…）之后会不定时更新（先立个flag）。 更新一篇新文章分为文章写作和推送两个部分。强烈推荐这篇文章，讲的超级详细，也可以通过Hexo官方文档（好有用哇！）和Typora的Markdown语法查看更多信息。  文章写作  创建新文章 在vscode终端界面输入以下命令就可以根据已有的Hexo主题模板创建新文章，不添加layout关键字默认使用post模板。 1hexo new [layout] &lt;title&gt; 更多信息查看： Hexo-Writing  写作 在Typora中编辑新生成的.md文档。右键可以很方便地插入各种。不过有些懒得右键点选，推荐快捷键来操作。（p.s....</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Blog/img/my-photo.jpg" onerror="this.onerror=null;this.src='/Blog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">keijyu</div><div class="author-info-description">一个爱折腾的IT初心者</div><div class="site-data"><a href="/Blog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/Blog/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/Blog/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/chenhuizhu-0930"><i class="fab fa-github"></i><span>😊前往小家😊</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">2025年1月22日加入Hexo</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87"><span class="toc-number">1.</span> <span class="toc-text"> 网页中插入图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vscode%E5%86%85%E7%BD%AE%E9%A2%84%E8%A7%88typora%E4%B8%AD%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87"><span class="toc-number">2.</span> <span class="toc-text"> vscode内置预览&#x2F;Typora中显示图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F"><span class="toc-number">3.</span> <span class="toc-text"> 调整图片大小</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/02/07/HexoAddImage/" title="利用Hexo在博客中插入本地图片 | 无需外链">利用Hexo在博客中插入本地图片 | 无需外链</a><time datetime="2025-02-07T04:54:05.000Z" title="发表于 2025-02-07 12:54:05">2025-02-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/02/06/ThemeEdit/" title="Hexo部署与配置-基于Butterfly主题【持续更新】">Hexo部署与配置-基于Butterfly主题【持续更新】</a><time datetime="2025-02-06T09:26:43.000Z" title="发表于 2025-02-06 17:26:43">2025-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/02/05/UseMarkdown/" title="在onenote中使用markdown">在onenote中使用markdown</a><time datetime="2025-02-05T05:46:52.000Z" title="发表于 2025-02-05 13:46:52">2025-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/01/22/BlogUpdateMethod/" title="Hexo更新博文介绍">Hexo更新博文介绍</a><time datetime="2025-01-22T06:46:38.576Z" title="发表于 2025-01-22 14:46:38">2025-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347);"><div id="footer-wrap"><div class="copyright">&copy;2025 By keijyu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">遇见你是我们之间的缘分</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Blog/js/utils.js"></script><script src="/Blog/js/main.js"></script><script src="/Blog/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/Blog/2025/02/07/HexoAddImage/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = '利用Hexo在博客中插入本地图片 | 无需外链'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Disqus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

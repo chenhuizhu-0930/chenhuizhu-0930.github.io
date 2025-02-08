@@ -20,6 +20,15 @@
   </url>
   
   <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/08/DeepseekDeploy/</loc>
+    
+    <lastmod>2025-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/05/UseMarkdown/</loc>
     
     <lastmod>2025-02-08</lastmod>
@@ -84,6 +93,20 @@
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Hexo/</loc>
+    <lastmod>2025-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/%E6%9B%B4%E6%96%B0%E4%B8%AD/</loc>
+    <lastmod>2025-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/AI/</loc>
     <lastmod>2025-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

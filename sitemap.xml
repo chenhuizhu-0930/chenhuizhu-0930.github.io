@@ -2,9 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/</loc>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/06/ThemeEdit/</loc>
     
-    <lastmod>2025-02-07</lastmod>
+    <lastmod>2025-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/05/UseMarkdown/</loc>
+    
+    <lastmod>2025-02-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,23 +22,14 @@
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/01/22/BlogUpdateMethod/</loc>
     
-    <lastmod>2025-02-07</lastmod>
+    <lastmod>2025-02-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/06/ThemeEdit/</loc>
-    
-    <lastmod>2025-02-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/05/UseMarkdown/</loc>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/07/HexoAddImage/</loc>
     
     <lastmod>2025-02-07</lastmod>
     

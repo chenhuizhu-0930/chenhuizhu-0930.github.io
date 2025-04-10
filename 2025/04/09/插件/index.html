@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>插件开发基本 | 云深不知处</title><meta name="author" content="云深有风"><meta name="copyright" content="云深有风"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="插件注册  事件管道执行阶段 在插件注册到 CRM 系统时，会设置它在哪个执行阶段（如预验证、预操作、后操作）触发，一旦设置完成，CRM 系统就会在相应阶段自动调用插件，代码里可以无需再次判断。  Pre - validation：预验证阶段，在此阶段可对即将进行的操作进行合法性检查等 Pre - operation：预操作阶段，在实际操作（如创建、更新实体）执行前触发 Post - opera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="插件开发基本">
+<meta property="og:url" content="https://chenhuizhu-0930.github.io/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/index.html">
+<meta property="og:site_name" content="云深不知处">
+<meta property="og:description" content="插件注册  事件管道执行阶段 在插件注册到 CRM 系统时，会设置它在哪个执行阶段（如预验证、预操作、后操作）触发，一旦设置完成，CRM 系统就会在相应阶段自动调用插件，代码里可以无需再次判断。  Pre - validation：预验证阶段，在此阶段可对即将进行的操作进行合法性检查等 Pre - operation：预操作阶段，在实际操作（如创建、更新实体）执行前触发 Post - opera">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chenhuizhu-0930.github.io/Blog/image/my-photo.png">
+<meta property="article:published_time" content="2025-04-09T01:59:08.000Z">
+<meta property="article:modified_time" content="2025-04-10T09:59:36.522Z">
+<meta property="article:author" content="云深有风">
+<meta property="article:tag" content="CRM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chenhuizhu-0930.github.io/Blog/image/my-photo.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "插件开发基本",
+  "url": "https://chenhuizhu-0930.github.io/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/",
+  "image": "https://chenhuizhu-0930.github.io/Blog/image/my-photo.png",
+  "datePublished": "2025-04-09T01:59:08.000Z",
+  "dateModified": "2025-04-10T09:59:36.522Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "云深有风",
+      "url": "https://chenhuizhu-0930.github.io/Blog/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Blog/img/favicon.png"><link rel="canonical" href="https://chenhuizhu-0930.github.io/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="R35ocZxY44_Dj9X92NG-FwSv3aOBtxGw3gH4hhOztXQ"/><meta name="msvalidate.01" content="3F7DB54452D6C04895D1BF5A996384A1"/><link rel="stylesheet" href="/Blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '插件开发基本',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Blog/image/my-photo.png" onerror="this.onerror=null;this.src='/Blog/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Blog/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/Blog/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/Blog/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/Blog/image/top-image.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Blog/"><span class="site-name">云深不知处</span></a><a class="nav-page-title" href="/Blog/"><span class="site-name">插件开发基本</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Blog/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">插件开发基本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-09T01:59:08.000Z" title="发表于 2025-04-09 09:59:08">2025-04-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-10T09:59:36.522Z" title="更新于 2025-04-10 17:59:36">2025-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Blog/categories/%E5%BC%80%E5%8F%91/">开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="插件注册"><a class="markdownIt-Anchor" href="#插件注册"></a> 插件注册</h3>
+<h4 id="事件管道执行阶段"><a class="markdownIt-Anchor" href="#事件管道执行阶段"></a> 事件管道执行阶段</h4>
+<p>在插件注册到 CRM 系统时，会设置它在哪个执行阶段（如预验证、预操作、后操作）触发，一旦设置完成，CRM 系统就会在相应阶段自动调用插件，代码里可以无需再次判断。</p>
+<ul>
+<li><strong>Pre - validation</strong>：预验证阶段，在此阶段可对即将进行的操作进行合法性检查等</li>
+<li><strong>Pre - operation</strong>：预操作阶段，在实际操作（如创建、更新实体）执行前触发</li>
+<li><strong>Post - operation</strong>：后操作阶段，在操作完成后触发</li>
+</ul>
+<h4 id="插件的step"><a class="markdownIt-Anchor" href="#插件的step"></a> 插件的step</h4>
+<ul>
+<li>定义与作用
+<ul>
+<li><code>Step</code>是插件中定义的一个执行单元，它规定了插件在特定事件（如创建、更新、删除实体等）发生时的具体执行逻辑和顺序。每个<code>Step</code>可以与不同的事件、实体以及消息相绑定，从而实现对不同业务场景的精确控制。通过配置不同的<code>Step</code>，开发人员可以灵活地定制插件在不同阶段和条件下的行为，以满足复杂的业务需求。</li>
+</ul>
+</li>
+<li>关键属性
+<ul>
+<li><strong>事件</strong>：指定<code>Step</code>所响应的 Dynamics 365 平台事件，如<code>Create</code>（创建实体时触发）、<code>Update</code>（更新实体时触发）、<code>Delete</code>（删除实体时触发）等。开发人员可以根据业务需求选择合适的事件来触发插件逻辑的执行。</li>
+<li><strong>消息</strong>：与事件相关联，进一步细化插件触发的条件。例如，对于<code>Update</code>事件，可以通过消息指定具体是更新哪些字段时触发插件。常见的消息包括<code>SetState</code>（设置实体状态）、<code>Assign</code>（分配实体所有权）等。</li>
+<li><strong>实体</strong>：明确<code>Step</code>所作用的 Dynamics 365 实体对象，如客户、订单、联系人等。插件可以针对特定实体进行数据操作和业务逻辑处理。</li>
+<li><strong>执行顺序</strong>：定义了在多个<code>Step</code>存在的情况下，它们的执行先后顺序。通过设置执行顺序，可以确保插件逻辑按照预期的顺序依次执行，避免出现逻辑冲突或数据不一致的情况。</li>
+<li><strong>模式</strong>：包括同步和异步两种模式。同步模式下，插件会在主业务流程中立即执行，直到插件执行完成，主流程才会继续；异步模式则是将插件的执行放入后台队列，不影响主业务流程的继续执行，适用于一些耗时较长的操作，以提高系统的响应性能和用户体验。</li>
+</ul>
+</li>
+</ul>
+<h3 id="插件执行判断"><a class="markdownIt-Anchor" href="#插件执行判断"></a> 插件执行判断</h3>
+<h4 id="执行实体判断"><a class="markdownIt-Anchor" href="#执行实体判断"></a> 执行实体判断</h4>
+<p>在 CS 文件中会有针对某一个或多个实体的判断逻辑，确保代码只在处理该实体相关操作时执行。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (pluginContext.LogicalName.ToString() == <span class="string">&quot;ns_outsourcingbudget&quot;</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 这里编写针对ns_outsourcingbudget实体的特定处理代码</span></span><br><span class="line">    <span class="comment">// 如获取该实体特定属性值、根据属性值进行业务判断等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="消息类型判断"><a class="markdownIt-Anchor" href="#消息类型判断"></a> 消息类型判断</h4>
+<p>在CS文件中，一般会有类似如下代码结构来响应创建、更新、删除等消息类型：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (pluginContext.GetMessageType() == PluginContext.MessageType.Create)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 这里放置针对创建操作的处理代码</span></span><br><span class="line">    <span class="comment">// 比如获取创建实体的相关属性、进行数据校验等操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插件开发"><a class="markdownIt-Anchor" href="#插件开发"></a> 插件开发</h3>
+<h4 id="取得实体属性值并打log"><a class="markdownIt-Anchor" href="#取得实体属性值并打log"></a> 取得实体属性值并打log</h4>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (entity.Attributes.ContainsKey(PluginConsts.NS_WORKSTARTDATE_NM))</span><br><span class="line">&#123;</span><br><span class="line">    startdate = input.ns_workstartdate;</span><br><span class="line">    pluginContext.Logger.Debug(class_name + <span class="string">&quot;:入力値より開始日取得＝&quot;</span> + (startdate.HasValue ? startdate.ToString() : <span class="string">&quot;NULL&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="pre-image"><a class="markdownIt-Anchor" href="#pre-image"></a> Pre-Image</h4>
+<p>在 Dynamics 365 插件开发中，预镜像（Pre - Image）是在实体发生特定操作（如更新、删除等）之前，系统为该实体创建的一个副本。它的目的是提供实体在操作前的状态信息，以便插件能够根据操作前的数据执行相应的逻辑。一般情况下，预镜像会包含实体的所有字段及其当时的值，这样插件可以全面地了解实体在操作前的完整状态。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab_outsourcing preImage = pluginContext.GetPreImage&lt;ab_outsourcing&gt;();</span><br></pre></td></tr></table></figure>
+<h4 id="input"><a class="markdownIt-Anchor" href="#input"></a> Input</h4>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entity entity = pluginContext.GetInputEntity&lt;Entity&gt;();</span><br></pre></td></tr></table></figure>
+<h4 id="post-image"><a class="markdownIt-Anchor" href="#post-image"></a> Post-Image</h4>
+<h3 id="插件的连锁启动"><a class="markdownIt-Anchor" href="#插件的连锁启动"></a> 插件的连锁启动</h3>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://chenhuizhu-0930.github.io/Blog">云深有风</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://chenhuizhu-0930.github.io/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/">https://chenhuizhu-0930.github.io/Blog/2025/04/09/插件/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://chenhuizhu-0930.github.io/Blog" target="_blank">云深不知处</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Blog/tags/CRM/">CRM</a></div><div class="post-share"><div class="social-share" data-image="/Blog/image/my-photo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Blog/2025/02/28/%E5%BB%BA%E7%AD%91%E8%A1%8C%E4%B8%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B/" title="项目管理系统流程 | 建筑行业"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-28</div><div class="info-item-2">项目管理系统流程 | 建筑行业</div></div><div class="info-2"><div class="info-item-1"> 案件/项目管理流程    步骤 涉及模块 操作 具体操作 系统同步（如有）     1 案件 / 项目 新建 关联job后案件转项目    2 受注見込み 企画JOB作成  / 現業JOB作成 / 未契約業務着手申請 / 企画業務申請 通过停用记录更新营业状况（受注 / 失注 / 营业中止）      - 現業JOB作成 JOB上标注业务报酬额，为job分配成本费用code（コスト集計単位模块） JOB作成的时点传给PS。在PS上做業務委託task，传给CRM     - 未契約業務着手申請      JOB JOB終了申請 / JOB変更申請 / 原価明細       - JOB終了申請 受注業務为完了时才能申请。保存后自动生成活动-任务里的一条记录      - JOB变更申请 在JOB…变更申请实体中审批     业务委托 业务委托申请作成 / 变更开始  PS上做好業務委託task，传给CRM后，自动生成业务委托明细     - 变更开始            3 合同 新建 / 更新 案件 / 项目的grid中加    4 受注業務 新建 / 完了届発行 /...</div></div></div></a><a class="pagination-related" href="/Blog/2025/04/01/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" title="系统设计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-01</div><div class="info-item-2">系统设计</div></div><div class="info-2"><div class="info-item-1"> 设计书分类    画面Layout定义书：视图、表单、JS逻辑（画面处理一览）   Table定义书：定义实体字段   更新处理记述书：定义workflow，插件等逻辑   </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Blog/image/my-photo.png" onerror="this.onerror=null;this.src='/Blog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">云深有风</div><div class="author-info-description">一个爱折腾的IT初心者</div><div class="site-data"><a href="/Blog/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/Blog/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/Blog/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/chenhuizhu-0930"><i class="fab fa-github"></i><span>😊前往小家😊</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">2025年1月22日加入Hexo</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E6%B3%A8%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text"> 插件注册</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%AE%A1%E9%81%93%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 事件管道执行阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84step"><span class="toc-number">1.2.</span> <span class="toc-text"> 插件的step</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E6%89%A7%E8%A1%8C%E5%88%A4%E6%96%AD"><span class="toc-number">2.</span> <span class="toc-text"> 插件执行判断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%AE%9E%E4%BD%93%E5%88%A4%E6%96%AD"><span class="toc-number">2.1.</span> <span class="toc-text"> 执行实体判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="toc-number">2.2.</span> <span class="toc-text"> 消息类型判断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="toc-number">3.</span> <span class="toc-text"> 插件开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E5%BE%97%E5%AE%9E%E4%BD%93%E5%B1%9E%E6%80%A7%E5%80%BC%E5%B9%B6%E6%89%93log"><span class="toc-number">3.1.</span> <span class="toc-text"> 取得实体属性值并打log</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pre-image"><span class="toc-number">3.2.</span> <span class="toc-text"> Pre-Image</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#input"><span class="toc-number">3.3.</span> <span class="toc-text"> Input</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#post-image"><span class="toc-number">3.4.</span> <span class="toc-text"> Post-Image</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E8%BF%9E%E9%94%81%E5%90%AF%E5%8A%A8"><span class="toc-number">4.</span> <span class="toc-text"> 插件的连锁启动</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/" title="插件开发基本">插件开发基本</a><time datetime="2025-04-09T01:59:08.000Z" title="发表于 2025-04-09 09:59:08">2025-04-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/04/02/Https%E4%B8%8E%E8%AF%81%E4%B9%A6/" title="Https与证书">Https与证书</a><time datetime="2025-04-02T08:53:06.000Z" title="发表于 2025-04-02 16:53:06">2025-04-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/04/01/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" title="系统设计">系统设计</a><time datetime="2025-04-01T03:02:42.000Z" title="发表于 2025-04-01 11:02:42">2025-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/03/25/Azure%E7%A7%9F%E6%88%B7%E4%B8%8E%E8%AE%A2%E9%98%85/" title="Azure租户与订阅">Azure租户与订阅</a><time datetime="2025-03-25T09:34:43.000Z" title="发表于 2025-03-25 17:34:43">2025-03-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Blog/2025/03/18/svn%E4%B8%89%E6%96%B9%E5%90%88%E5%B9%B6%E8%BF%87%E7%A8%8B/" title="SVN三方合并过程">SVN三方合并过程</a><time datetime="2025-03-18T06:25:35.000Z" title="发表于 2025-03-18 14:25:35">2025-03-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/Blog/image/top-image.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2025 By 云深有风</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">遇见你是我们之间的缘分</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Blog/js/utils.js"></script><script src="/Blog/js/main.js"></script><script src="/Blog/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'https://chenhuizhu-0930.github.io/Blog/2025/04/09/%E6%8F%92%E4%BB%B6/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = '插件开发基本'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Disqus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

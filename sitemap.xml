@@ -4,7 +4,16 @@
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/04/11/Hexo%E7%BD%91%E7%AB%99%E5%8A%A0%E9%80%9F/</loc>
     
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/2025/04/02/Https%E4%B8%8E%E8%AF%81%E4%B9%A6/</loc>
+    
+    <lastmod>2025-04-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -50,15 +59,6 @@
     <loc>https://chenhuizhu-0930.github.io/Blog/2025/02/26/%E6%8A%95%E8%B5%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
     
     <lastmod>2025-04-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/2025/04/02/Https%E4%B8%8E%E8%AF%81%E4%B9%A6/</loc>
-    
-    <lastmod>2025-04-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -157,7 +157,7 @@
 
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -165,70 +165,70 @@
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Hexo/</loc>
-    <lastmod>2025-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/tags/%E6%9B%B4%E6%96%B0%E4%B8%AD/</loc>
-    <lastmod>2025-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/tags/AI/</loc>
-    <lastmod>2025-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/tags/HTTPS/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Azure/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/PowerPlatform/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/tags/CRM/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/AI/</loc>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/tags/%E6%8A%95%E8%B5%84/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/%E6%9B%B4%E6%96%B0%E4%B8%AD/</loc>
+    <lastmod>2025-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/HTTPS/</loc>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/Markdown/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/tags/SVN/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/CRM/</loc>
+    <lastmod>2025-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/tags/%E6%8A%95%E8%B5%84/</loc>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -237,49 +237,49 @@
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/</loc>
-    <lastmod>2025-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2025-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2025-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E4%B8%9A%E5%8A%A1/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E7%BB%8F%E6%B5%8E/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://chenhuizhu-0930.github.io/Blog/categories/%E4%B8%9A%E5%8A%A1/%E5%BB%BA%E7%AD%91%E8%A1%8C%E4%B8%9A/</loc>
-    <lastmod>2025-04-11</lastmod>
+    <lastmod>2025-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
